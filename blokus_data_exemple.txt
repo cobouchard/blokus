@@ -1,0 +1,26 @@
+
+
+
+
+Les lettres sont codés sur 8 bits comme des char normaux (il est possible de gagner de la place en les codants simplement sur 5 bits également)
+Une position (deux nombres entre 0 et 19) est codé sur 10 bits (deux nombres codés sur 5 bits).
+Le numéro de la pièce est logique, les pièces sont dans l'ordre.
+Une pièce non placée à une position impossible.
+La rotation de la pièce est codée sur 2 bits 
+(0 : pas de rotation
+ 1 : une rotation
+ 2 : deux rotations
+ 3 : trois rotations)
+
+Deux joueurs 21 pièces :
+
+(Nombre de pièce * bits_position+bits_rotation + noms_des_joueurs*bits_noms)/8 = nombre d'octet
+(42 * 12 + 20 * 8)/8 = 83 octets
+
+Si l'on avait codé les noms sur 5 bits :
+
+(42*12+20*5)/8 = 76 octets.
+
+On peut rajouter la couleur de chaque joueur si elles étaient tirés au sort à l'aide d'un octet.
+
+84 octets ou 77, pour deux joueurs.
