@@ -1,7 +1,7 @@
-#include    <iostream>
+#include <iostream>
 #include <time.h>
 #include <stdlib.h>
-#include <windows.h>
+#include <cstdlib>
 
 #include "constantes.h"
 #include "header_creation_jeu.h"
@@ -141,6 +141,7 @@ void init_tableau_joueurs_fixe(Joueur tableau_joueurs[], int & nombre_joueur)
 
 }
 
+/* for windows users
 void affichage_espace_colore(Joueur tableau_joueurs[], int numero_joueur)
 {
     HANDLE h =GetStdHandle(STD_OUTPUT_HANDLE);
@@ -149,6 +150,40 @@ void affichage_espace_colore(Joueur tableau_joueurs[], int numero_joueur)
     SetConsoleTextAttribute(h,i);
     std::cout << ' ' ;
     SetConsoleTextAttribute(h,15);
+} */
+
+void setTextColor(int color)
+{
+    std::cout << "\033[" << color << "m";
+}
+
+// Function to reset the text color to default
+void resetTextColor()
+{
+    std::cout << "\033[0m";
+}
+
+void affichage_espace_colore(Joueur tableau_joueurs[], int numero_joueur)
+{
+    // Map sacouleur to appropriate ANSI color code
+    int color_code;
+    int sacouleur = tableau_joueurs[numero_joueur].sacouleur;
+
+    switch (sacouleur)
+    {
+        case 1: color_code = 31; break; // Red
+        case 2: color_code = 32; break; // Green
+        case 3: color_code = 33; break; // Yellow
+        case 4: color_code = 34; break; // Blue
+        case 5: color_code = 35; break; // Magenta
+        case 6: color_code = 36; break; // Cyan
+        case 7: color_code = 37; break; // White
+        default: color_code = 37; break; // Default to white if unknown color
+    }
+
+    setTextColor(color_code);   // Set the specified color
+    std::cout << ' ';           // Output a colored space
+    resetTextColor();           // Reset color to default
 }
 
 void affichage_plateau(char plateau[DIMENSION][DIMENSION], Joueur tableau_joueurs[], char tableau_des_pieces[21][5][5], int joueur_actif)
@@ -259,6 +294,7 @@ void affichage_plateau(char plateau[DIMENSION][DIMENSION], Joueur tableau_joueur
     std::cout << std::endl;
 }
 
+/* for windows users
 void ClearScreen()
   {
   HANDLE                     hStdOut;
@@ -270,11 +306,11 @@ void ClearScreen()
   hStdOut = GetStdHandle( STD_OUTPUT_HANDLE );
   if (hStdOut == INVALID_HANDLE_VALUE) return;
 
-  /* Get the number of cells in the current buffer */
+  // Get the number of cells in the current buffer //
   if (!GetConsoleScreenBufferInfo( hStdOut, &csbi )) return;
   cellCount = csbi.dwSize.X *csbi.dwSize.Y;
 
-  /* Fill the entire buffer with spaces */
+  // Fill the entire buffer with spaces //
   if (!FillConsoleOutputCharacter(
     hStdOut,
     (TCHAR) ' ',
@@ -283,7 +319,7 @@ void ClearScreen()
     &count
     )) return;
 
-  /* Fill the entire buffer with the current colors and attributes */
+  // Fill the entire buffer with the current colors and attributes //
   if (!FillConsoleOutputAttribute(
     hStdOut,
     csbi.wAttributes,
@@ -292,6 +328,11 @@ void ClearScreen()
     &count
     )) return;
 
-  /* Move the cursor home */
+  // Move the cursor home //
   SetConsoleCursorPosition( hStdOut, homeCoords );
+}
+*/
+
+void ClearScreen(){
+    system("clear");
 }

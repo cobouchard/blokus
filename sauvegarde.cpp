@@ -3,9 +3,9 @@
 #include <fstream>
 #include <string>
 
-#include <header_creation_jeu.h>
-#include <header_gestion_plateau.h>
-#include <header_gestion_pieces.h>
+#include "header_creation_jeu.h"
+#include "header_gestion_plateau.h"
+#include "header_gestion_pieces.h"
 
 
 char BitsToChar(int nb_bit, bool chaine[])
